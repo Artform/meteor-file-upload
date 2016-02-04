@@ -2,6 +2,8 @@ Uploads = new Mongo.Collection('uploads');
 
 if (Meteor.isClient) {
    Meteor.subscribe('uploads');
+
+   // Helpers for the file listing template
    Template.fileList.helpers({
       theUploads: function() {
          return Uploads.find({}, {
@@ -9,6 +11,10 @@ if (Meteor.isClient) {
                "name": 1
             }
          });
+      },
+      // Return number of files uploaded
+      uploadCount: function() {
+         return Uploads.find().count();
       },
       myCallbacks: function() {
          return {
@@ -30,7 +36,7 @@ if (Meteor.isClient) {
       }
    });
    Template.fileList.events({
-      'click #deleteFileButton ': function(event) {
+      'click .deleteFileButton ': function(event) {
          Meteor.call('deleteFile', this._id);
       }
    })
@@ -46,12 +52,15 @@ if (Meteor.isServer) {
    });
 
    Meteor.methods({
+      // Linked to the class deleteFile on the button. Invoked using template 'click' helper
       'deleteFile': function(_id) {
+         console.log("Deleting file with ID " + _id);
          check(_id, String);
 
          var upload = Uploads.findOne(_id);
          if (upload == null) {
             throw new Meteor.Error(404, 'Upload not found'); // maybe some other code
+            throw new Meteor.Error(500, 'File may have been moved or server has another issue'); // maybe some other code
          }
          // NOTE: we should also validate here and make sure user is logged in by passing a token through
          UploadServer.delete(upload.path);
@@ -61,8 +70,9 @@ if (Meteor.isServer) {
 
    Meteor.startup(function() {
       UploadServer.init({
-         tmpDir: process.env.PWD + '/Uploads/tmp',
-         uploadDir: process.env.PWD + '/Uploads/',
+         // Default upload locations. If you're using it for images, /public/uploads/ can also work
+         tmpDir: process.env.PWD + '/uploads/tmp',
+         uploadDir: process.env.PWD + '/uploads/',
          checkCreateDirectories: true,
          finished: function(fileInfo, formFields) {
             console.log("upload finished, fileInfo ", fileInfo);
