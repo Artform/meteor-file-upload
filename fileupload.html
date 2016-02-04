@@ -3,31 +3,43 @@
 </head>
 
 <body>
-   {{>fileList}}
+   <div class="container">
+      <h1>File Uploads</h1>
+      {{>uploadForm}}
+      <h2>File Listing</h2>
+      {{>fileList}}
+   </div>
 </body>
 
-<template name="fileList">
-   <h1>File Uploads</h1>
-   <p>
+<template name="uploadForm">
+   <form>
       {{> upload_bootstrap multiple=true callbacks=myCallbacks formData=someStuff }}
-   </p>
-   <p>
-      <small>
-        note, use target = _blank in the anchor tag to open a new tab so meteor app is not reloaded
-     </small>
-   </p>
+   </form>
+</template>
 
-   <table border="1">
+<template name="fileList">
+   {{#if uploads}}
+   <table class="table table-striped table-hover">
+      <thead>
+         <tr>
+            <th>Filename</th>
+            <th>Link</th>
+            <th>&nbsp;</th>
+         </tr>
+      </thead>
       <tbody>
          {{#each theUploads}}
          <tr>
             <td>{{name}}</td>
-            <td><a target="_blank" href="/upload{{path}}">link</a></td>
+            <td><a target="_blank" href="/upload{{path}}">/upload{{path}}</a></td>
             <td>
-               <button id="deleteFileButton">delete</button>
+               <button class="deleteFileButton">delete</button>
             </td>
          </tr>
          {{/each}}
       </tbody>
    </table>
+   {{else}}
+   <p class="alert alert-warning">No files have been uploaded yet.</p>
+   {{/if}}
 </template>
