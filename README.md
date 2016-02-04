@@ -1,17 +1,15 @@
-# fileUploadDemo2
-This demo will use the components from 
+# fileUpload Example
+This demo will use the components from
 
 https://github.com/tomitrescak/meteor-uploads
 
-the packages you need are:
+## Required Packages:
 
 https://atmospherejs.com/tomi/upload-server
-
 https://atmospherejs.com/tomi/upload-jquery
 
-$ meteor add tomi:upload-server
+$ meteor add tomi:upload-server tomi:upload-jquery
 
-$ meteor add tomi:upload-jquery
-
-For another way to do this, see my other demo 
-https://github.com/wesyah234/fileUploadDemo which uses https://github.com/CollectionFS/Meteor-CollectionFS
+## Notes:
+This fork is based on:
+https://github.com/wesyah234/fileUploadDemo2

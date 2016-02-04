@@ -1,0 +1,33 @@
+<head>
+   <title>File Upload Demo 2</title>
+</head>
+
+<body>
+   {{>fileList}}
+</body>
+
+<template name="fileList">
+   <h1>File Uploads</h1>
+   <p>
+      {{> upload_bootstrap multiple=true callbacks=myCallbacks formData=someStuff }}
+   </p>
+   <p>
+      <small>
+        note, use target = _blank in the anchor tag to open a new tab so meteor app is not reloaded
+     </small>
+   </p>
+
+   <table border="1">
+      <tbody>
+         {{#each theUploads}}
+         <tr>
+            <td>{{name}}</td>
+            <td><a target="_blank" href="/upload{{path}}">link</a></td>
+            <td>
+               <button id="deleteFileButton">delete</button>
+            </td>
+         </tr>
+         {{/each}}
+      </tbody>
+   </table>
+</template>
