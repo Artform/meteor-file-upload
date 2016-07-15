@@ -85,15 +85,15 @@ if (Meteor.isServer) {
             "vcf": "text/x-vcard"
          },
          validateRequest: function(req, res) {
-            // to validate, one way to do it would be to form your download urls on the client to pass in some token
-            // that we can use to look up the current user by the token
-            //console.log("token passed in: ", req.query.token);
-            // possibly hit the users collection to see if the token is valid by looking at the hashed resume tokens
-            //var user = Users.findOne({"services.resume.loginTokens":{$elemMatch:{"hashedToken":req.query.token}}});
-            //console.log("user ", user);
-            //if you want to allow the download, return nothing
-            //// if you want to prevent the download, return a string with the error message, like:
-            //return "cannot download this file,, sorry";
+            // // to validate, one way to do it would be to form your download urls on the client to pass in some token
+            // // that we can use to look up the current user by the token
+            // console.log("token passed in: ", req.query.token);
+            // // possibly hit the users collection to see if the token is valid by looking at the hashed resume tokens
+            // var user = Users.findOne({"services.resume.loginTokens":{$elemMatch:{"hashedToken":req.query.token}}});
+            // console.log("user ", user);
+            // // if you want to allow the download, return nothing
+            // // if you want to prevent the download, return a string with the error message, like:
+            // return "cannot download this file,, sorry";
          }
       })
    });
